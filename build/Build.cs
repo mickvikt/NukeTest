@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Nuke.Common;
 using Nuke.Common.CI;
+using Nuke.Common.CI.AzurePipelines;
 using Nuke.Common.Execution;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
@@ -27,6 +28,8 @@ class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
 
+    [PathExecutable] Tool Az;
+
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
@@ -42,6 +45,6 @@ class Build : NukeBuild
         .DependsOn(Restore)
         .Executes(() =>
         {
+            Az("--help");
         });
-
 }
